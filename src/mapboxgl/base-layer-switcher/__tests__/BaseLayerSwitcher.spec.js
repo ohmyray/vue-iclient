@@ -140,5 +140,31 @@ describe('SmBaseLayerSwitcher', () => {
     expect(layerItems.at(0).contains('.active-item')).toBe(true);
     done();
   });
+
+  it ('not show origin layer', async (done) => {
+    mapWrapper = await createEmptyMap();
+    wrapper = mount(SmBaseLayerSwitcher, {
+      propsData: {
+        layers: cloneDeep(layers),
+        showOriginLayer: false
+      }
+    });
+    await mapSubComponentLoaded(wrapper);
+    const layerItems = wrapper.findAll('.layer-item');
+    expect(layerItems.length).toBe(2);
+    const activeItem = wrapper.find('.layer-item.active-item');
+    expect(activeItem.exists()).toBe(false);
+    layerItems.at(0).trigger('click');
+    expect(layerItems.at(0).contains('.active-item')).toBe(true);
+    expect(layerItems.at(1).contains('.active-item')).toBe(false);
+    wrapper.setProps({
+      layers: cloneDeep(layers).slice(1)
+    });
+    const nextLayerItems = wrapper.findAll('.layer-item');
+    expect(nextLayerItems.length).toBe(1);
+    expect(nextLayerItems.at(0).contains('.active-item')).toBe(false);
+    expect(wrapper.vm.selectedId).toBe(wrapper.vm.baseLayer.id);
+    done();
+  })
 });
 

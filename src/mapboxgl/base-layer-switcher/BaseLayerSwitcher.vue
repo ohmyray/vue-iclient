@@ -93,12 +93,12 @@ export default {
   },
   watch: {
     layers(next, prev) {
-      if (isEqual(next, prev)) {
+      if (isEqual(next, prev) || !this.selectedId) {
         return;
       }
       const isExist = next.some(layer => layer.id === this.selectedId);
       if (!isExist) {
-        this.changeBaseLayer(this.displayLayers[0]);
+        this.changeBaseLayer({ ...this.baseLayer });
       }
     }
   },
