@@ -62,4 +62,12 @@
       }
     }
   }
+
+  .is-not-header {
+    &.is-top-left {
+      &.#{$ant-prefix}-collapse-card__content {
+        padding-top: 14px;
+      }
+    }
+  }
 }
