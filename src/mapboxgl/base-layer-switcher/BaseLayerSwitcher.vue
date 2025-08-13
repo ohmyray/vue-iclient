@@ -49,7 +49,7 @@ export default {
   props: {
     iconClass: {
       type: String,
-      default: 'sm-components-icon-a-dituqiehuan1'
+      default: 'sm-components-icon-dituqiehuan'
     },
     headerName: {
       type: String,
